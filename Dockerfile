@@ -2,10 +2,6 @@ FROM docker.io/n8nio/n8n:1.121.2
 
 USER root
 
-RUN if command -v apk >/dev/null 2>&1; then \
-      apk add --no-cache ffmpeg fontconfig font-noto-cjk && fc-cache -f -v; \
-    elif command -v apt-get >/dev/null 2>&1; then \
-      apt-get update && apt-get install -y --no-install-recommends ffmpeg fontconfig fonts-noto-cjk && fc-cache -f -v && rm -rf /var/lib/apt/lists/*; \
-    else \
-      echo "No supported package manager found" && exit 1; \
-    fi
+RUN apk add --no-cache ffmpeg ffmpeg-libs fontconfig font-noto-cjk && fc-cache -f -v
+
+USER node
